@@ -1,5 +1,3 @@
-#from __future__ import annotations
-
 from dataclasses import dataclass
 from typing import List, Optional
 
@@ -25,7 +23,11 @@ def test_string_hints(session: requests.Session, mocker: requests_mock.Mocker):
         def create_item(self, body: "TestBody") -> "Optional[int]":
             raise NotImplementedError
 
-    mocker.get("http://example.com/items/1", text="[1, 2, 3]", complete_qs=True)
+    mocker.get(
+        "http://example.com/items/1",
+        text="[1, 2, 3]",
+        complete_qs=True,
+    )
     mocker.post("http://example.com/items", text="1", complete_qs=True)
 
     client = Api(base_url="http://example.com", session=session)
